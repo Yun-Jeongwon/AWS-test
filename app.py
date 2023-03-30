@@ -46,7 +46,7 @@ def extractData(pdfPath):
         #text 추출
         
         for rect in text:
-            annot = page.add_redact_annot(rect)
+            page.add_redact_annot(rect)
             page.apply_redactions(images=fitz.PDF_REDACT_IMAGE_NONE)
     fitz_pdf.save(pdf, garbage=3, deflate=True)
     #text 삭제
@@ -62,13 +62,13 @@ def extractData(pdfPath):
         ppimg.save(img_byte_arr, format='png')
         img_byte_arr = img_byte_arr.getvalue()
         result = []
-        result = reader.readtext(img_byte_arr)
-        for j in range(len(result)):
-            reText = result[j][1]
-            show_text[i] = show_text[i] + reText + '\n'
-            reText = reText.lower()             ## 소문자 처리
-            reText = reText.replace(" ","")     ## 공백문자 처리
-            all_text[i] = all_text[i] + reText + '\n'
+#         result = reader.readtext(img_byte_arr)
+#         for j in range(len(result)):
+#             reText = result[j][1]
+#             show_text[i] = show_text[i] + reText + '\n'
+#             reText = reText.lower()             ## 소문자 처리
+#             reText = reText.replace(" ","")     ## 공백문자 처리
+#             all_text[i] = all_text[i] + reText + '\n'
 
     for i in range(len(all_text)):    
         result_dict[i] = all_text[i]
@@ -119,7 +119,7 @@ def uploadPDF():
       file_name = ''        # 초기화
       file_name += './static/PDFs/'
       file_name += str(file.filename)
-      result_dict = extractData(file_name)
+      # result_dict = extractData(file_name)
       return render_template('uploadPDF.html', file_name = file_name)
 
 
